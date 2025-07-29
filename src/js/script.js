@@ -8,9 +8,9 @@
 // let cards = Array.from(document.querySelectorAll(".card")).reverse();
 // const TOTAL_CARDS = cards.length;
 // const NUM_VISIBLE = 3; // how many floors you want on screen
-// let virtualIndex = 0;  // which logical card is currently “bottom”
+// let virtualIndex = 0;  // which logical card is currently "bottom"
 
-// /* Calculate one floor’s thickness */
+// /* Calculate one floor's thickness */
 // const cs   = getComputedStyle(cards[0]);
 // const mTop = parseFloat(cs.marginTop);
 // const mBot = parseFloat(cs.marginBottom);
@@ -44,9 +44,51 @@
 // // updateCardPositions();
 // initializeCardClickHandlers();
 
+// Enhanced dropdown functionality
+function initializeDropdowns() {
+    const dropdowns = document.querySelectorAll('.dropdown');
 
+    dropdowns.forEach(dropdown => {
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        let timeoutId;
 
+        // Show dropdown on hover
+        dropdown.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+            dropdownContent.style.display = 'block';
+            setTimeout(() => {
+                dropdownContent.style.transform = 'translateY(0)';
+                dropdownContent.style.opacity = '1';
+            }, 10);
+        });
 
+        // Hide dropdown with delay to allow moving to dropdown content
+        dropdown.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                dropdownContent.style.transform = 'translateY(-10px)';
+                dropdownContent.style.opacity = '0';
+                setTimeout(() => {
+                    dropdownContent.style.display = 'none';
+                }, 300);
+            }, 150);
+        });
+
+        // Keep dropdown open when hovering over dropdown content
+        dropdownContent.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+        });
+
+        dropdownContent.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                dropdownContent.style.transform = 'translateY(-10px)';
+                dropdownContent.style.opacity = '0';
+                setTimeout(() => {
+                    dropdownContent.style.display = 'none';
+                }, 300);
+            }, 150);
+        });
+    });
+}
 
 class InfiniteCardCarousel {
     constructor() {
@@ -206,4 +248,5 @@ class InfiniteCardCarousel {
 // Initialize the carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new InfiniteCardCarousel();
+    initializeDropdowns();
 });
