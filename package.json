@@ -4,13 +4,12 @@
     "description": "Personal Website to store projects and notes about topics that interest me.",
     "main": "index.js",
     "devDependencies": {
-        "express": "^5.1.0",
-        "live-server": "^1.2.2"
+        "@11ty/eleventy": "^3.1.2",
+        "express": "^5.1.0"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "node dev-server.js",
-        "start": "live-server --port=3000 --open=/"
+        "dev": "node dev-server.js"
     },
     "repository": {
         "type": "git",
